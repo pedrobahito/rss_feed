@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RSS Feed News Release</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>RSS Feed News Release</h1>
+    </header>
+    <nav>
+        <div id="hamburger">&#9776;</div>
+        <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Categories</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Contact</a></li>
+        </ul>
+    </nav>
+
+    <aside>
+        <div class="bento-box">
+            <h2>Search RSS Feed</h2>
+            <form id="searchForm">
+                <input type="text" id="rssInput" placeholder="Enter RSS URL">
+                <button type="submit" id="searchBtn">Search</button>
+            </form>
+        </div>
+        <div class="bento-box">
+            <h2>Categories</h2>
+            <ul>
+                <li><a href="#">Politics</a></li>
+                <li><a href="#">Technology</a></li>
+                <li><a href="#">Sports</a></li>
+                <li><a href="#">Entertainment</a></li>
+            </ul>
+        </div>
+        <div class="bento-box">
+            <h2>About</h2>
+            <p>Welcome to RSS Feed News Release, your one-stop destination for the latest news and updates.</p>
+        </div>
+        <div class="bento-box">
+            <h2>Contact</h2>
+            <form>
+                <input type="text" placeholder="Name" />
+                <input type="email" placeholder="Email" />
+                <textarea placeholder="Message"></textarea>
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+    </aside>
+    <main>
+        <div class="bento-container">
+            <div class="bento-box">
+                <h2>Latest News</h2>
+                <div class="feed-items" id="feedItems">
+                    <!-- RSS feed items will be dynamically inserted here -->
+                </div>
+            </div>
+            
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy;</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

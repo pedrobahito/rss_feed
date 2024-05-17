@@ -16,7 +16,7 @@ body {
 }
 
 /* Text Styles */
-a, ul, li, h1, h2, h3, h4, h5, h6, button, input {
+a, ul, li, h1, h2, h3, h4, h5, h6, button, input, output {
     color: rgba(245, 245, 245, 0.65);
     text-decoration: none;
     list-style: none;
@@ -24,16 +24,30 @@ a, ul, li, h1, h2, h3, h4, h5, h6, button, input {
 }
 
 /* Navigation Styles */
-aside {
-    width: 25vw;
-    margin: 1em 0.5em;
-    padding: 1em;
+aside, section > * {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
 }
 
-.side-item {
+aside {
+    width: 25vw;
+    margin: 1em 0.5em;
+    padding: 1em;
+}
+
+section {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.feeds-heading {
+    text-align: left;
+}
+
+/* Side Item Styles */
+.sidebar-item {
     width: 100%;
     margin: .1em auto;
     padding: .5em;
@@ -50,9 +64,10 @@ aside {
     backdrop-filter: blur(10px);
 }
 
-/* Link, Button and Input Styles */
-a, button, input {
+/* Link, Button,  Input, and Output  Styles */
+a, button {
     width: 100%;
+    height:fit-content;
     margin: .5em auto;
     padding: .5em;
     background: rgba(255, 255, 255, 0.2);
@@ -63,8 +78,19 @@ a, button, input {
                 transform 0.3s ease-in-out; 
 }
 
-.title-container{
+input, output {
+    display: block;
     width: 100%;
+    padding: .5em;
+    margin: .5em auto;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 1em;
+    border: 0.1px solid rgba(173, 173, 173, 0.8);
+    transition: background 0.3s ease-in-out, 
+                box-shadow 0.3s ease-in-out, 
+                transform 0.3s ease-in-out; 
+    color: rgba(245, 245, 245, 0.65);
+    font-weight: bolder;
 }
 
 a:hover, button:hover {
@@ -76,11 +102,11 @@ a:hover, button:hover {
 }
 
 a:active, button:active {
-    transform: scale(0.9);
+    transform: scale(0.8);
 }
 
 /* Glass Effect Styles */
-.glass {
+.glass-effect {
     background: rgba(150, 150, 150, 0.2);
     color: white;
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
@@ -96,22 +122,63 @@ main {
     padding: 1em;
 }
 
-.fav-list {
-    height: 75vh;
+.feeds-section {
+    height: 100vh;
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-around;
+    justify-content: right;
 }
 
-.search-container {
+.feeds-list {
+    display: flex;
+    flex-direction: column;
+    justify-content: right;
+}
+
+ul{
+    padding: 1em 0;
+}
+li {
+    margin: 1em 0;
+}
+
+section h4, ul {
+    margin:1em 1em 1em 0;
+
+}
+
+
+.search-form {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     margin: 1em auto;
 }
+
 ::placeholder {
     text-align: center;
     color: rgba(245, 245, 245, 0.3);
     font-weight: lighter;
+}
+
+.rssPost {
+    margin-bottom: 20px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}
+
+.rssPost h3 {
+    margin-top: 0;
+}
+
+.rssPost a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.rssPost a:hover {
+    text-decoration: underline;
 }

@@ -9,37 +9,47 @@
 </head>
 <body>
     <aside class="glass-effect sidebar">
-            <a class=" sidebar-item" href="#" role="button">
-                <h3>RSS Feed</h3>
-            </a>
+        <a class="sidebar-item" href="#" role="button">
+            <h1>RSS Feed</h1>
+        </a>
         <form class="sidebar-item glass-effect search-form" action="#" method="get">
             <input type="url" name="url-input" id="url-input" placeholder="Enter URL">
-            <button type="submit" role="button" id="scrapeBtn">Search</button>
-            <output type="url" name="url-output" id="url-output"> 
+            <button type="submit" id="scrapeBtn">Search</button>
+            <output id="url-output"> 
                 <textarea name="output-area" id="output-area" readonly></textarea> 
             </output>
+            <button type="submit" id="add-feed">Add Feed</button>
         </form>
         <section class="glass-effect sidebar-item feeds-section">
-            <h4 class="feeds-heading">Feeds</h4>
+            <h2 class="feeds-heading">Feeds</h2>
             <ul class="feeds-list" id="sidebar-feeds-list">
-                <li><a href="#" role="button" id="sidebar-all-feeds">All Feeds</a></li>
-                <li><a href="#" role="button">Archer</a></li>
-                <li><a href="#" role="button">Netwitness</a></li>
+                <li><a class="sidebar-item" href="#" id="sidebar-all-feeds">All Feeds</a></li>
+                <li><a class="sidebar-item" href="#">Archer</a></li>
+                <li><a class="sidebar-item" href="#">NetWitness</a></li>
             </ul>
         </section>
     </aside>
     <main class="main-content glass-effect">
-        <section class="rssPostsFeed" id="rssPostsFeed"></section>
+        <section class="posts-section">
+            <article class="rss-post card">
+                <div class="img-container">
+                    <img class="card-img" src="/image-placeholder.png" alt="Image description">
+                </div>
+                <div>
+                    <h3>Title</h3>
+                    <div class="date-time">
+                        <time class="date">Date</time>
+                        <span class="separator"> • </span>
+                        <time class="time">Time</time>
+                    </div>
+                    <a class="source-post-link" href="#">Source</a>
+                </div>
+            </article>
+        </section>
     </main>
-    <div class="modal" id="addFeedModal">
-        <div class="modal-content">
-            <h2>Add RSS Feeds</h2>
-            <div id="feedOptions"></div>
-            <button id="addFeedsBtn">Add to Feed</button>
-        </div>
-    </div>
+    <script src="script.js"></script>
+    <script src="./my-cors-proxy/server.js"></script>
+    <script src="engine.js"></script>
+    <script src="test.js"></script>
 </body>
-<script src="script.js"></script>
-<script src="./my-cors-proxy/server.js"></script>
-<script src="engine.js"></script>
 </html>

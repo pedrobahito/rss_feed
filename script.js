@@ -1,18 +1,26 @@
-
+        // Utility function to parse HTML and XML
 document.getElementById('scrapeBtn').addEventListener('click', async () => {
     const urlInput = document.getElementById('url-input');
     const targetUrl = urlInput.value.trim();
 
-    if (targetUrl) {
+    try {
+        new URL(targetUrl); // This will throw an error if the URL is invalid
+        if (!targetUrl.startsWith('http://') && !targetUrl.startsWith('https://')) {
+            throw new Error('URL must be absolute.');
+        }
+        showLoadingMessage();
         await fetchAndDisplayRSSLinks(targetUrl);
-    } else {
-        console.error('Please enter a valid URL.');
+    } catch (error) {
+        showError('Please enter a valid URL.');
+    } finally {
+        hideLoadingMessage();
     }
 });
 
 // Fetch and display RSS links from the provided URL
 async function fetchAndDisplayRSSLinks(url) {
     const proxyUrls = ['https://cors-anywhere.herokuapp.com/', 'https://cors.bridged.cc/', 'http://localhost:8080/proxy?url='];
+
     for (const proxyUrl of proxyUrls) {
         try {
             const fullUrl = proxyUrl + encodeURIComponent(url);
@@ -35,10 +43,15 @@ async function fetchHTML(url) {
     return await response.text();
 }
 
+// Utility function to parse HTML and XML
+function parseContent(content, type) {
+    const parser = new DOMParser();
+    return parser.parseFromString(content, type);
+}
+
 // Extract RSS URLs from the provided HTML content
 function extractRSSUrls(html, baseUrl) {
-    const parser = new DOMParser();
-    const doc = parser.parseFromString(html, 'text/html');
+    const doc = parseContent(html, 'text/html');
     const linkTags = doc.querySelectorAll('link[type="application/rss+xml"], link[type="application/atom+xml"], link[rel="alternate"][type="application/rss+xml"], link[rel="alternate"][type="application/atom+xml"]');
     const rssUrls = new Set();
 
@@ -88,7 +101,7 @@ function showAddFeedModal(rssUrls) {
     });
 
     const modal = document.getElementById('addFeedModal');
-    modal.style.display = 'block';
+    modal.style.display = 'flex';
 
     document.getElementById('addFeedsBtn').onclick = () => {
         const selectedUrls = Array.from(feedOptions.querySelectorAll('input[type="checkbox"]:checked')).map(input => input.value);
@@ -118,7 +131,7 @@ function addFeedsToList(urls) {
     });
 }
 
-// Fetch RSS posts from the provided URL and display them
+// Fetch and display RSS posts from the provided URL
 async function fetchAndDisplayRSSPosts(url) {
     try {
         const response = await fetch(url);
@@ -132,8 +145,7 @@ async function fetchAndDisplayRSSPosts(url) {
 
 // Parse the RSS feed data and return the items
 function parseRSSFeed(data) {
-    const parser = new DOMParser();
-    const xmlDoc = parser.parseFromString(data, 'text/xml');
+    const xmlDoc = parseContent(data, 'text/xml');
     return xmlDoc.querySelectorAll('item');
 }
 
@@ -175,10 +187,30 @@ document.getElementById('sidebar-all-feeds').addEventListener('click', async () 
     const urls = Array.from(document.querySelectorAll('#sidebar-feeds-list a')).map(a => a.textContent);
     const allPosts = [];
     for (const url of urls) {
-        const response = await fetch(url);
-        const data = await response.text();
-        const items = parseRSSFeed(data);
-        allPosts.push(...items);
+        try {
+            const response = await fetch(url);
+            const data = await response.text();
+            const items = parseRSSFeed(data);
+            allPosts.push(...items);
+        } catch (error) {
+            console.error(`Error fetching posts from ${url}:`, error);
+        }
     }
     displayRSSPosts(allPosts);
 });
+
+// Utility functions for user feedback
+function showLoadingMessage() {
+    // Implement the function to show a loading message to the user
+    document.getElementById('loadingMessage').style.display = 'block';
+}
+
+function hideLoadingMessage() {
+    // Implement the function to hide the loading message
+    document.getElementById('loadingMessage').style.display = 'none';
+}
+
+function showError(message) {
+    // Implement the function to show an error message to the user
+    alert(message);
+}
